@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/utilities/app_color.dart';
+
 class MainButton extends StatelessWidget {
   final void Function()? onPressed;
   final Widget child;
@@ -17,10 +19,10 @@ class MainButton extends StatelessWidget {
     this.onPressed,
     this.expanded = true,
     this.radius = 5,
-    this.color = Colors.blue,
+    this.color = AppColors.primary,
     this.borderColor,
     this.elevation,
-    this.verticalPadding = 14,
+    this.verticalPadding = 5,
     this.horizontalPadding,
   });
 

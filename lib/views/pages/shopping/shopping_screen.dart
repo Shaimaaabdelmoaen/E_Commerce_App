@@ -1,37 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/views/pages/product-details/product_details.dart';
+import 'package:flutter_app/views/widgets/main_appbar.dart';
 import 'package:flutter_app/views/widgets/main_spaces.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
-
-import '../../../core/utilities/app_color.dart';
-import '../productDetails/product_details.dart';
 
 class ShoppingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        leading: Center(
-          child: Image.asset(
-              'assets/images/appbar_logo.png'
-          ),
-        ),
-        actions: [
-          IconButton(
-              onPressed: (){},
-              icon: Icon(Icons.notifications)
-          ),
-          IconButton(
-              onPressed: (){},
-              icon: Icon(Icons.favorite_border)
-          ),
-          IconButton(
-              onPressed: (){},
-              icon: Icon(Icons.shopping_cart)
-          ),
-        ],
-      ),
+      appBar: MainAppBar(),
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -45,7 +23,7 @@ class ShoppingPage extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, ProductDetails.routeName);
+                    Navigator.pushNamed(context, ProductDetailsPage.routeName);
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2,

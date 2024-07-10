@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/views/pages/null/null.dart';
-import 'package:flutter_app/views/pages/profile/profile_screen.dart';
+import 'package:flutter_app/core/utilities/app_color.dart';
+import 'package:flutter_app/views/pages/home/home_page.dart';
+import 'package:flutter_app/views/pages/profile/profile_page.dart';
+import 'package:flutter_app/views/pages/requests/requests_page.dart';
 import 'package:flutter_app/views/pages/shopping/shopping_screen.dart';
-
-import '../../../core/utilities/app_color.dart';
-import '../homePage/home_page.dart';
-
 class BottomNavigationBarPage extends StatefulWidget {
+  static const routeName='BottomNavigationBarPage';
   const BottomNavigationBarPage({super.key});
 
   @override
@@ -19,7 +18,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   List<Widget>taps=[
     HomePage(),
     ShoppingPage(),
-    Null(),
+    RequestsPage(),
     ProfilePage()
 
   ];
@@ -51,7 +50,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
                 icon: Icon(Icons.shopping_cart)
             ),
             BottomNavigationBarItem(
-                label: 'المشترايات',
+                label: 'طلباتى',
                 icon: Icon(Icons.backpack)
             ),
             BottomNavigationBarItem(

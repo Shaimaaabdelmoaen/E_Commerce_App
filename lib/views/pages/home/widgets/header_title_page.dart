@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
-
-import '../../widgets/main_text.dart';
-
-class HeaderTitle extends StatelessWidget{
+import 'package:flutter_app/views/widgets/main_text.dart';
+class HeaderTitlePage extends StatelessWidget{
   String? title;
-  HeaderTitle({required this.title});
+  HeaderTitlePage({required this.title});
   @override
   Widget build(BuildContext context) {
     return Row(

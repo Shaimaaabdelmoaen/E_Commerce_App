@@ -13,13 +13,21 @@ import 'package:flutter_app/core/localization/my_localization.dart';
 import 'package:flutter_app/core/utilities/app_routes.dart';
 import 'package:flutter_app/injections.dart';
 import 'package:flutter_app/providers/app_provider.dart';
-import 'package:flutter_app/views/pages/personalProfile/personal_profile.dart';
-import 'package:flutter_app/views/pages/productDetails/product_details.dart';
+import 'package:flutter_app/views/pages/bottom_navigation_bar/bottom_navigation_bar_page.dart';
+import 'package:flutter_app/views/pages/home/home_page.dart';
+import 'package:flutter_app/views/pages/login/login_page.dart';
+import 'package:flutter_app/views/pages/personal_profile/personal_profile.dart';
+import 'package:flutter_app/views/pages/product-details/product_details.dart';
+import 'package:flutter_app/views/pages/register/register_page.dart';
+import 'package:flutter_app/providers/cart_provider.dart';
+import 'package:flutter_app/views/pages/shopping_card/shopping_card_page.dart';
 import 'package:flutter_app/views/pages/splash/splash_page.dart';
-import 'package:flutter_app/views/themeData/themeData.dart';
+import 'package:flutter_app/views/pages/welcome/welcome_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import 'core/theme-data/themeData.dart';
 // import 'firebase_options.dart';
 
 @pragma('vm:entry-point')
@@ -42,7 +50,12 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AppProvider()),
+        ChangeNotifierProvider(
+            create: (context) => AppProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => CartProvider(),
+        ),
       ],
       // child: MyApp(message: message),
       child: const MyApp(),
@@ -93,13 +106,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        PersonalProfile.routeName:(_)=>PersonalProfile(),
-        ProductDetails.routeName:(_)=>ProductDetails(),
+        PersonalProfilePage.routeName:(_)=>PersonalProfilePage(),
+        ProductDetailsPage.routeName:(_)=>ProductDetailsPage(),
+        WelcomPage.routeName:(_)=>WelcomPage(),
+        LoginPage.routeName:(_)=>LoginPage(),
+        RegisterPage.routeName:(_)=>RegisterPage(),
+        ShoppingCardPage.routeName:(_)=>ShoppingCardPage(),
+        HomePage.routeName:(_)=>HomePage(),
+        BottomNavigationBarPage.routeName:(_)=>BottomNavigationBarPage()
       },
+      initialRoute: LoginPage.routeName,
       navigatorKey: AppNavigator.navigatorKey,
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (context) => tr(context).app_name,
-      theme: MyThemeData.lightTheme,
+      theme: MyThemeDataPage.lightTheme,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       locale: _locale,

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/core/models/sponsors.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_app/core/data/remote/api_service.dart';
-
-import '../../../core/models/sponsors.dart';
-
-class Brands extends StatefulWidget {
+class BrandsPage extends StatefulWidget {
   @override
-  _BrandsState createState() => _BrandsState();
+  _BrandsPageState createState() => _BrandsPageState();
 }
 
-class _BrandsState extends State<Brands> {
+class _BrandsPageState extends State<BrandsPage> {
   List<Sponsor> _sponsors = [];
   bool _isLoading = true;
   final ApiService _apiService = GetIt.instance<ApiService>();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/extensions/assetss_widgets.dart';
 import 'package:flutter_app/core/localization/my_localization.dart';
+import 'package:flutter_app/core/utilities/app_color.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 
 class MainTextField extends StatefulWidget {
@@ -36,6 +37,7 @@ class MainTextField extends StatefulWidget {
   final bool obscureText;
   final double? hintFontSize;
   final TextDirection? textDirection;
+
   const MainTextField(
       {super.key,
       this.hint = '',
@@ -57,7 +59,7 @@ class MainTextField extends StatefulWidget {
       this.enable = true,
       this.style,
       this.hideKeyboard = false,
-      this.borderColor,
+      this.borderColor=AppColors.primary,
       this.suffixIcon,
       this.unfocusWhenTapOutside = false,
       this.onTap,
@@ -67,9 +69,10 @@ class MainTextField extends StatefulWidget {
       this.radius = 10,
       this.readOnly = false,
       this.obscureText = false,
-      this.hintFontSize = 12,
+      this.hintFontSize = 18,
       this.textDirection,
-      this.hintColor = Colors.grey});
+      this.hintColor = AppColors.primary
+      });
 
   @override
   State<MainTextField> createState() => MainTextFieldState();
@@ -153,7 +156,7 @@ class MainTextFieldState extends State<MainTextField> {
             hintText: widget.hint.isNotEmpty ? widget.hint : null,
             labelText: widget.label,
             hintStyle: TextStyle(
-                color: widget.hintColor, fontSize: widget.hintFontSize),
+                color: AppColors.primary.withOpacity(.5), fontSize: widget.hintFontSize),
             labelStyle: const TextStyle(color: Colors.black54, fontSize: 12),
             border: _border(
               color: widget.borderColor ?? Colors.black,

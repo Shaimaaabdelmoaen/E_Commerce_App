@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import '../../widgets/main_text.dart';
+import 'package:flutter_app/views/widgets/main_text.dart';
 
-class Sections extends StatelessWidget{
+class SectionsPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(

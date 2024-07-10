@@ -5,7 +5,7 @@ import 'package:flutter_app/core/utilities/app_color.dart';
 import 'package:flutter_app/views/widgets/main_spaces.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 
-class ProductDetails extends StatelessWidget{
+class ProductDetailsPage extends StatelessWidget{
   static const routeName='ProductDetails';
   @override
   Widget build(BuildContext context) {

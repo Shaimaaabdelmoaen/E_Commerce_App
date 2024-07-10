@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/core/data/remote/api_service.dart';
+import 'package:flutter_app/core/models/product.dart';
+import 'package:flutter_app/core/utilities/app_color.dart';
+import 'package:flutter_app/views/widgets/main_text.dart';
 import 'package:get_it/get_it.dart';
-
-import '../../../core/data/remote/api_service.dart';
-import '../../../core/models/product.dart';
-import '../../../core/utilities/app_color.dart';
-import '../../widgets/main_text.dart';
-
-class ProductsSection extends StatefulWidget {
+class ProductsSectionPage extends StatefulWidget {
   @override
-  State<ProductsSection> createState() => _ProductsSectionState();
+  State<ProductsSectionPage> createState() => _ProductsSectionPageState();
 }
 
-class _ProductsSectionState extends State<ProductsSection> {
+class _ProductsSectionPageState extends State<ProductsSectionPage> {
   List<Product> _products = [];
   bool _isLoading = true;
   final ApiService _apiService = GetIt.instance<ApiService>();

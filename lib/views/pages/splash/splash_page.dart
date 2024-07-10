@@ -1,9 +1,10 @@
 import 'package:flutter_app/core/extensions/assetss_widgets.dart';
+import 'package:flutter_app/core/utilities/app_color.dart';
 import 'package:flutter_app/core/utilities/app_routes.dart';
 import 'package:flutter_app/providers/splash/splash_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/views/pages/bottom_navigation_bar/bottom_navigation_bar_page.dart';
 
-import '../bottomNavigationBar/bottom_navigation_bar.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -16,34 +17,18 @@ class SplashPage extends StatelessWidget {
         builder: (context, provider, child) {
           if (provider.authUserResult == true) {
             Future.microtask(
-              () => AppRoutes.routeRemoveTo(context, const BottomNavigationBarPage()),
+                  () => AppRoutes.routeRemoveTo(context, const BottomNavigationBarPage()),
             );
           } else if (provider.authUserResult == false) {
             // Login Page
             Future.microtask(
-              () => AppRoutes.routeRemoveTo(context, const BottomNavigationBarPage()),
+                  () => AppRoutes.routeRemoveTo(context, const BottomNavigationBarPage()),
             );
           }
           return Scaffold(
+            backgroundColor: AppColors.primary,
             body: Center(
-              child: Column(
-                children: [
-                  const Spacer(),
-                  const FlutterLogo(
-                    size: 100,
-                  ),
-                  const Spacer(),
-                  const SizedBox(
-                    width: 25,
-                    height: 25,
-                    child: CircularProgressIndicator(
-                      color: Colors.green,
-                      strokeWidth: 2,
-                    ),
-                  ),
-                  32.hSize,
-                ],
-              ),
+              child: Image.asset('assets/images/splash_screen_logo.png',alignment: Alignment.center,)
             ),
           );
         },
