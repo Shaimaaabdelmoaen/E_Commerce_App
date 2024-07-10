@@ -1,13 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_app/core/data/remote/api_service.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
+import 'package:flutter_app/views/pages/login/login_page.dart';
 import 'package:flutter_app/views/pages/personal_profile/personal_profile.dart';
 import 'package:flutter_app/views/pages/profile/widgets/profile_container_page.dart';
 import 'package:flutter_app/views/widgets/main_spaces.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
+import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatelessWidget{
+
+  Future<void> logout(BuildContext context) async {
+    try {
+      ApiService apiService = GetIt.instance<ApiService>();
+      await apiService.logoutUser();
+
+       SharedPreferences prefs = await SharedPreferences.getInstance();
+       await prefs.clear();
+
+      Navigator.pushNamedAndRemoveUntil(context, LoginPage.routeName, (route) => false);
+    } catch (e) {
+      print('Logout failed: $e');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +83,7 @@ class ProfilePage extends StatelessWidget{
               ),
               MainSpaces.medium(),
               InkWell(
-                onTap: (){},
+                onTap: () => logout(context),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

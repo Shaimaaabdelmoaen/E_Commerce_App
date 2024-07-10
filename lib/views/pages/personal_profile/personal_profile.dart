@@ -22,6 +22,15 @@ class PersonalProfilePage extends StatelessWidget{
           'assets/images/appbar_logo.png',
           height: 40,
         ),
+        leading: Container(),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.arrow_forward, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).pop(); // Navigates back to the previous screen
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

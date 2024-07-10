@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/core/data/remote/api_service.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
 import 'package:flutter_app/core/utilities/app_validator.dart';
 import 'package:flutter_app/views/pages/bottom_navigation_bar/bottom_navigation_bar_page.dart';
 import 'package:flutter_app/views/pages/home/home_page.dart';
+import 'package:flutter_app/views/pages/register/register_page.dart';
 import 'package:flutter_app/views/widgets/main_button.dart';
 import 'package:flutter_app/views/widgets/main_divider.dart';
 import 'package:flutter_app/views/widgets/main_spaces.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 import 'package:flutter_app/views/widgets/main_textfield.dart';
+import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = 'LoginPage';
@@ -18,6 +22,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController emailController =TextEditingController();
+  TextEditingController passwordController =TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isChecked = false;
   bool _obscureText = true;
@@ -26,6 +32,23 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+  Future<void> login() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      try {
+        ApiService apiService = GetIt.instance<ApiService>();
+        Map<String, dynamic> userData = await apiService.loginUser(
+          emailController.text,
+          passwordController.text,
+        );
+         SharedPreferences prefs = await SharedPreferences.getInstance();
+         await prefs.setString('token', userData['token']);
+
+        Navigator.pushNamed(context, BottomNavigationBarPage.routeName);
+      } catch (e) {
+        print('Login failed: $e');
+      }
+    }
   }
 
   @override
@@ -50,12 +73,14 @@ class _LoginPageState extends State<LoginPage> {
                 MainText.pageTitle('تسجيل الدخول'),
                 MainSpaces.medium(),
                 MainTextField(
+                  controller: emailController,
                   hint: 'أدخل البريد الإلكتروني',
                   prefixIcon: Icon(Icons.mail_outline,size: 25,),
                   validator: AppValidator.emailValidate,
                 ),
                 MainSpaces.medium(),
                 MainTextField(
+                  controller: passwordController,
                   hint: 'أدخل كلمة المرور',
                   prefixIcon: Icon(Icons.lock,size: 25),
                   suffixIcon: IconButton(
@@ -96,11 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                     color: Colors.white,
                     textAlign: TextAlign.center,
                   ),
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      Navigator.pushNamed(context, BottomNavigationBarPage.routeName);
-                    }
-                  },
+                  onPressed: login
                 ),
                 MainSpaces.large(),
                 MainDivider(title: 'الإستمرار بإستخدام'),
@@ -121,7 +142,11 @@ class _LoginPageState extends State<LoginPage> {
                 MainSpaces.large(),
                 MainText.title('هل لا تمتلك حساب؟', color: Colors.black45),
                 MainSpaces.medium(),
-                MainText.title('إنشاء حساب', color: AppColors.secondary),
+                InkWell(
+                  onTap: (){
+                    Navigator.pushNamed(context, RegisterPage.routeName);
+                  },
+                    child: MainText.title('إنشاء حساب', color: AppColors.secondary)),
                 MainSpaces.medium(),
               ],
             ),

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/product.dart';
 import 'package:get_it/get_it.dart';
 
@@ -36,4 +37,71 @@ class ApiService {
       throw Exception('Error occurred: $e');
     }
   }
+  Future<void> registerUser(String name, String email, String phone, String password, String type) async {
+    try {
+      final response = await _dio.post(
+        'RegisterApi',
+        data: {
+          "name": name,
+          "email": email,
+          "phone": phone,
+          "password": password,
+          "type": type,
+        },
+      );
+
+      if (response.statusCode == 200 && response.data['status'] == true) {
+        print(response.data['message']);
+      } else {
+        throw Exception('Failed to register');
+      }
+    } catch (e) {
+      throw Exception('Error occurred: $e');
+    }
+  }
+  Future<Map<String, dynamic>> loginUser(String email, String password) async {
+    try {
+      final response = await _dio.post(
+        'LoginApi',
+        data: {
+          "email": email,
+          "password": password,
+        },
+      );
+
+      if (response.statusCode == 200 && response.data['status'] == true) {
+        return response.data['data'];
+      } else {
+        throw Exception('Failed to login');
+      }
+    } catch (e) {
+      throw Exception('Error occurred: $e');
+    }
+  }
+  Future<void> logoutUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    if (token == null) {
+      return;
+    }
+    try {
+      final response = await _dio.post(
+        'UserLogoutApi',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200 && response.data['status'] == true) {
+        print(response.data['message']);
+      } else {
+        throw Exception('Failed to logout');
+      }
+    } catch (e) {
+      throw Exception('Error occurred: $e');
+    }
+  }
+
 }

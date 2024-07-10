@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/core/data/remote/api_service.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
 import 'package:flutter_app/core/utilities/app_validator.dart';
-import 'package:flutter_app/views/pages/home/home_page.dart';
+import 'package:flutter_app/views/pages/login/login_page.dart';
 import 'package:flutter_app/views/widgets/main_button.dart';
 import 'package:flutter_app/views/widgets/main_spaces.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 import 'package:flutter_app/views/widgets/main_textfield.dart';
+import 'package:get_it/get_it.dart';
 
 class RegisterPage extends StatefulWidget {
   static const routeName='RegisterPage';
@@ -19,13 +21,31 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final formKey = GlobalKey<FormState>();
 
-  TextEditingController datecontroller = TextEditingController();
+  TextEditingController dateController = TextEditingController();
 
   TextEditingController phoneController = TextEditingController();
 
-  TextEditingController namecontroller = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
-  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  Future<void> register() async {
+    if (formKey.currentState?.validate() ?? false) {
+      try {
+        ApiService apiService = GetIt.instance<ApiService>();
+        await apiService.registerUser(
+          nameController.text,
+          emailController.text,
+          phoneController.text,
+          passwordController.text,
+          '1',
+        );
+        Navigator.pushNamed(context, LoginPage.routeName);
+      } catch (e) {
+        print('Registration failed: $e');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,35 +63,47 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Center(
           child: Form(
             key: formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction, // Auto validation mode
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
               children: [
                 MainSpaces.medium(),
                 MainText.pageTitle('إنشاء حساب'),
                 MainSpaces.medium(),
                 MainTextField(
-                  key: Key('nameField'), // Add a unique key for validation
-                  controller: namecontroller,
+                  key: Key('nameField'),
+                  controller: nameController,
                   hint: 'الإسم',
                   validator: (value) => AppValidator.nameValidate(value),
                 ),
                 MainSpaces.medium(),
                 MainTextField(
-                  key: Key('emailField'), // Add a unique key for validation
-                  controller: emailcontroller,
+                  key: Key('emailField'),
+                  controller: emailController,
                   hint: 'البريد الإلكتروني',
                   validator: (value) => AppValidator.emailValidate(value),
                 ),
                 MainSpaces.medium(),
                 MainTextField(
-                  key: Key('phoneField'), // Add a unique key for validation
+                  controller: passwordController,
+                  hint: 'أدخل كلمة المرور',
+                  prefixIcon: Icon(Icons.lock,size: 25),
+                  suffixIcon: IconButton(
+                    onPressed:  (){},
+                    icon: Icon(Icons.remove_red_eye_outlined
+                          ),),
+                  obscureText: true,
+                  validator: AppValidator.passwordValidate,
+                ),
+                MainSpaces.medium(),
+                MainTextField(
+                  key: Key('phoneField'),
                   controller: phoneController,
                   hint: 'رقم الهاتف',
                   validator: (value) => AppValidator.phoneValidate(value),
                 ),
                 MainSpaces.medium(),
                 MainTextField(
-                  controller: datecontroller,
+                  controller: dateController,
                   hint: 'تاريخ الميلاد',
                   suffixIcon: Icon(Icons.calendar_today),
                   onTap: () async {
@@ -84,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     if (pickedDate != null) {
                       String formattedDate = "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
                       setState(() {
-                        datecontroller.text = formattedDate;
+                        dateController.text = formattedDate;
                       });
                     }
                   },
@@ -127,11 +159,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     color: Colors.white,
                     textAlign: TextAlign.center,
                   ),
-                  onPressed: () {
-                    if (formKey.currentState?.validate() ?? false) {
-                      Navigator.pushNamed(context, HomePage.routeName);
-                    }
-                  },
+                  onPressed: register
                 ),
               ],
             ),
