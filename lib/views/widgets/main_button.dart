@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../core/utilities/app_color.dart';
+import 'package:flutter_app/core/utilities/app_color.dart';
 
 class MainButton extends StatelessWidget {
   final void Function()? onPressed;

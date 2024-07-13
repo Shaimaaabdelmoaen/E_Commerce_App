@@ -1,9 +1,8 @@
-import 'package:flutter_app/core/extensions/assetss_widgets.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
 import 'package:flutter_app/core/utilities/app_routes.dart';
 import 'package:flutter_app/providers/splash/splash_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/views/pages/bottom_navigation_bar/bottom_navigation_bar_page.dart';
+import 'package:flutter_app/views/widgets/main_page.dart';
 
 
 class SplashPage extends StatelessWidget {

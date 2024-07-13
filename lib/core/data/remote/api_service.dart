@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_app/core/models/product.dart';
+import 'package:flutter_app/core/models/sponsors.dart';
+import 'package:flutter_app/core/utilities/app_endpoints.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../models/product.dart';
 import 'package:get_it/get_it.dart';
-
-import '../../models/sponsors.dart';
-import '../../utilities/app_endpoints.dart';
 
 class ApiService {
   final Dio _dio = GetIt.instance<Dio>();

@@ -1,17 +1,34 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter_app/core/extensions/assetss_widgets.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
 import 'package:flutter_app/views/widgets/main_button.dart';
-import 'package:flutter_app/views/widgets/main_divider.dart';
-import 'package:flutter_app/views/widgets/main_spaces.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 import 'package:flutter_app/views/widgets/main_textfield.dart';
+import 'package:flutter_app/views/widgets/select_widget.dart';
 
 
-class PersonalProfilePage extends StatelessWidget{
+class PersonalProfilePage extends StatefulWidget{
   static const routeName='PersonalProfile';
+
+  const PersonalProfilePage({super.key});
+
+  @override
+  State<PersonalProfilePage> createState() => _PersonalProfilePageState();
+}
+
+class _PersonalProfilePageState extends State<PersonalProfilePage> {
+  String? selectedGender;
+  final formKey = GlobalKey<FormState>();
+
+  TextEditingController dateController=TextEditingController();
+
+  TextEditingController phoneController = TextEditingController();
+
+  TextEditingController nameController = TextEditingController();
+
+  TextEditingController emailController = TextEditingController();
+
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +42,7 @@ class PersonalProfilePage extends StatelessWidget{
         leading: Container(),
         actions: [
           IconButton(
-            icon: Icon(Icons.arrow_forward, color: Colors.white),
+            icon: const Icon(Icons.arrow_forward, color: Colors.white),
             onPressed: () {
               Navigator.of(context).pop(); // Navigates back to the previous screen
             },
@@ -33,50 +50,88 @@ class PersonalProfilePage extends StatelessWidget{
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: 14.aEdge,
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              MainSpaces.medium(),
-              MainTextField(
-                hint: 'الاسم',
-                prefixIcon: Icon(Icons.person_outline,size: 25),
-              ),
-              MainSpaces.medium(),
-              MainTextField(
-                  hint: 'رقم الهاتف',
-                prefixIcon: Icon(Icons.add_call,size: 25),),
-              MainSpaces.medium(),
-              MainTextField(
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: <Widget>[
+                13.hSize,
+                 MainTextField(
+                   controller: nameController,
+                  hint: 'الاسم : محمد ابراهيم',
+                  contentPadding: 15.vhEdge,
+                ),
+                13.hSize,
+                MainTextField(
+                  controller: emailController,
                   hint: 'البريد الالكترونى',
-                prefixIcon: Icon(Icons.mail_outline,size: 25),),
-              MainSpaces.medium(),
-              MainButton(
-                  child: MainText.subPageTitle('تحديث',
-                    color: Colors.white,
-                    textAlign:TextAlign.center ,),
-                onPressed: (){},
-              ),
-              MainSpaces.medium(),
-              MainDivider(title: 'كلمة المرور'),
-              MainSpaces.medium(),
-              MainTextField(
-                  hint: 'كلمة المرور الحالية',
-                prefixIcon: Icon(Icons.lock,size: 25),),
-              MainSpaces.medium(),
-              MainTextField(
-                  hint: 'كلمة المرور الجديدة',
-                prefixIcon: Icon(Icons.lock,size: 25),),
-              MainSpaces.medium(),
-              MainTextField(
-                  hint: 'تاكيد كلمة المرور الجديدة',
-                prefixIcon: Icon(Icons.lock,size: 25),),
-            ],
+                  contentPadding: 15.vhEdge,
+                ),
+                13.hSize,
+                 MainTextField(
+                   controller: phoneController,
+                    hint: 'رقم الهاتف',
+                   contentPadding: 15.vhEdge,
+                ),
+                13.hSize,
+                MainTextField(
+                  controller: dateController,
+                  hint: 'تاريخ الميلاد',
+                  suffixIcon: const Icon(Icons.calendar_today),
+                  contentPadding: 15.vhEdge,
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2101),
+                    );
+                    if (pickedDate != null) {
+                      String formattedDate = "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
+                      setState(() {
+                        dateController.text = formattedDate;
+                      });
+                    }
+                  },
+                ),
+                13.hSize,
+                CustomSelectorWidget<String>(
+                  items: const ['Male', 'Female', 'Other'],
+                  currentValue: selectedGender,
+                  hint: 'النوع',
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedGender = newValue;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select your gender';
+                    }
+                    return null;
+                  },
+                  fillColor: Colors.white,
+                ),
+                13.hSize,
+                MainTextField(
+                  controller: passwordController,
+                  hint: 'كلمة المرور',
+                  contentPadding: 15.vhEdge,
+                ),
+                20.hSize,
+                MainButton(
+                    child: const MainText.subPageTitle('تحديث',
+                      color: Colors.white,
+                      textAlign:TextAlign.center ,),
+                  onPressed: (){},
+                ),
+              ],
+            ),
           ),
         ),
       ),
 
     );
   }
-
 }

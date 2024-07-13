@@ -1,19 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_app/core/extensions/assetss_widgets.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
-import 'package:flutter_app/providers/app_provider.dart';
-import 'package:flutter_app/providers/cart_provider.dart';
 import 'package:flutter_app/views/widgets/cart_item_widget.dart';
 import 'package:flutter_app/views/widgets/main_appbar.dart';
 import 'package:flutter_app/views/widgets/main_button.dart';
-import 'package:flutter_app/views/widgets/main_spaces.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
-import 'package:flutter_app/views/widgets/main_textfield.dart';
 
 
 class RequestsPage extends StatefulWidget{
   static const routeName='RequestsPage';
+
+  const RequestsPage({super.key});
 
   @override
   State<RequestsPage> createState() => _RequestsPageState();
@@ -23,21 +20,19 @@ class _RequestsPageState extends State<RequestsPage> {
   String? selectedAddress;
   @override
   Widget build(BuildContext context) {
-    final cartProvider = Provider.of<CartProvider>(context);
-    final cart = cartProvider.cart;
     return Scaffold(
-      appBar: MainAppBar(),
+      appBar: const MainAppBar(),
       body: Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: 5.aEdge,
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(child: MainText.pageTitle('الدفع',color: AppColors.secondary,)),
+              const Center(child: MainText.pageTitle('الدفع',color: AppColors.secondary,)),
               Expanded(
                 child: ListView.builder(
                   itemCount: 3,
-                  itemBuilder: (ctx, i) => CartItemWidget(
+                  itemBuilder: (ctx, i) => const CartItemWidget(
                     id: '5',
                     productId: '88',
                     title: 'المراعى',
@@ -47,9 +42,9 @@ class _RequestsPageState extends State<RequestsPage> {
 
                 ),
               ),
-              MainSpaces.medium(),
-              MainText.subPageTitle('معلومات الشراء',),
-              MainSpaces.small(),
+              18.hSize,
+              const MainText.subPageTitle('معلومات الشراء',),
+              18.hSize,
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   hintText: 'اختيار العنوان',
@@ -57,7 +52,7 @@ class _RequestsPageState extends State<RequestsPage> {
                   fillColor: Colors.white,
                   filled: true,
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.primary),
+                    borderSide: const BorderSide(color: AppColors.primary),
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
@@ -81,7 +76,7 @@ class _RequestsPageState extends State<RequestsPage> {
                 },
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: 8.aEdge,
                 child: Container(
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -89,7 +84,7 @@ class _RequestsPageState extends State<RequestsPage> {
                         color: Colors.grey.withOpacity(0.5),  // Shadow color
                         spreadRadius: 2,  // Spread radius
                         blurRadius: 5,  // Blur radius
-                        offset: Offset(0, 3),  // Offset from the container
+                        offset: const Offset(0, 3),  // Offset from the container
                       ),
                     ],
                   ),
@@ -97,12 +92,12 @@ class _RequestsPageState extends State<RequestsPage> {
                     width: double.infinity,
                     height: 50,
                     color: Colors.white,
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         MainText.subPageTitle('الإجمالي'),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0),
                           child: MainText.subPageTitle('200'),
                         ),
                       ],
@@ -111,7 +106,7 @@ class _RequestsPageState extends State<RequestsPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: 5.aEdge,
                 child: Container(
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -119,23 +114,23 @@ class _RequestsPageState extends State<RequestsPage> {
                         color: Colors.grey.withOpacity(0.5),  // Shadow color
                         spreadRadius: 2,  // Spread radius
                         blurRadius: 5,  // Blur radius
-                        offset: Offset(0, 3),  // Offset from the container
+                        offset: const Offset(0, 3),  // Offset from the container
                       ),
                     ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
+                    padding: 10.aEdge,
                     child: Container(
                       width: double.infinity,
                       height: 50,
                       color: Colors.white,
-                      child: Row(
+                      child:  Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          MainText.subPageTitle('حالة الدفع'),
+                          const MainText.subPageTitle('حالة الدفع'),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: MainText.subPageTitle('أجل 30 يوم'),
+                            padding: 8.aEdge,
+                            child: const MainText.subPageTitle('أجل 30 يوم'),
                           ),
                         ],
                       ),
@@ -143,7 +138,7 @@ class _RequestsPageState extends State<RequestsPage> {
                   ),
                 ),
               ),
-              MainButton(
+              const MainButton(
                 child: MainText.subPageTitle('الدفع',
                 color: Colors.white,
                 textAlign: TextAlign.center,),)

@@ -1,5 +1,4 @@
-import 'cart_item.dart';
-
+import 'package:flutter_app/models/cart_item.dart';
 class Cart {
   Map<String, CartItem> _items = {};
 

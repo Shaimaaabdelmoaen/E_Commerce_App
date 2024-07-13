@@ -1,24 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/views/pages/product-details/product_details.dart';
+import 'package:flutter_app/core/extensions/assetss_widgets.dart';
+import 'package:flutter_app/views/pages/product_details/product_details.dart';
 import 'package:flutter_app/views/widgets/main_appbar.dart';
-import 'package:flutter_app/views/widgets/main_spaces.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 
 class ShoppingPage extends StatelessWidget {
+  const ShoppingPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainAppBar(),
+      appBar: const MainAppBar(),
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 0.75,
         ),
         itemCount: 10,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: 10.aEdge,
             child: Column(
               children: [
                 InkWell(
@@ -28,7 +29,7 @@ class ShoppingPage extends StatelessWidget {
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2,
                     height: MediaQuery.of(context).size.height/3,
-                    decoration: BoxDecoration(color: Colors.white),
+                    decoration: const BoxDecoration(color: Colors.white),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -38,16 +39,16 @@ class ShoppingPage extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        MainSpaces.small(),
+                        15.hSize,
                         Row(
                           children: [
-                            MainText.subPageTitle('مكرونه الملكة',color: Colors.black,),
-                            MainSpaces.width(45),
+                            const MainText.subPageTitle('مكرونه الملكة',color: Colors.black,),
+                            25.hSize,
                             Image.asset('assets/images/heart.png')
                           ],
                         ),
-                        MainText.body('250جرام'),
-                        MainText.title('اقل سهر للكاش 10جنية'),
+                        const MainText.body('250جرام'),
+                        const MainText.title('اقل سهر للكاش 10جنية'),
                       ],
                     ),
                   ),

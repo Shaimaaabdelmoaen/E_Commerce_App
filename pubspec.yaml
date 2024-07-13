@@ -34,6 +34,7 @@ dependencies:
   geolocator: ^10.1.0
   google_maps_flutter: ^2.3.1
   google_map_polyline_new: ^0.3.0+2
+  salomon_bottom_bar: ^3.1.0
 
 dev_dependencies:
   flutter_test:

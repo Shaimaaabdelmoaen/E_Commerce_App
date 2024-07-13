@@ -1,17 +1,22 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_app/core/data/remote/api_service.dart';
+import 'package:flutter_app/core/extensions/assetss_widgets.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
+import 'package:flutter_app/views/pages/edit_password/edit_password_page.dart';
 import 'package:flutter_app/views/pages/login/login_page.dart';
+import 'package:flutter_app/views/pages/notification_settings/notification_settings_page.dart';
 import 'package:flutter_app/views/pages/personal_profile/personal_profile.dart';
 import 'package:flutter_app/views/pages/profile/widgets/profile_container_page.dart';
-import 'package:flutter_app/views/widgets/main_spaces.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatelessWidget{
+  const ProfilePage({super.key});
+
 
   Future<void> logout(BuildContext context) async {
     try {
@@ -23,7 +28,9 @@ class ProfilePage extends StatelessWidget{
 
       Navigator.pushNamedAndRemoveUntil(context, LoginPage.routeName, (route) => false);
     } catch (e) {
-      print('Logout failed: $e');
+      if (kDebugMode) {
+        print('Logout failed: $e');
+      }
     }
   }
   @override
@@ -39,7 +46,7 @@ class ProfilePage extends StatelessWidget{
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: 10.aEdge,
           child: Column(
             children: [
               InkWell(
@@ -52,13 +59,24 @@ class ProfilePage extends StatelessWidget{
                   ),
               ),
               InkWell(
+                onTap: (){
+                  Navigator.pushNamed(context, EditPasswordPage.routeName);
+                },
+                child: ProfileContainerPage(
+                  name: 'تعديل كلمة المرور',
+                  iconData:Icons.password,
+                ),
+              ),
+              InkWell(
                 onTap: (){},
                   child: ProfileContainerPage(
                     name: 'الاسئلة الشائعة',
                     iconData: Icons.quiz_outlined,)
               ),
               InkWell(
-                  onTap: (){},
+                  onTap: (){
+                    Navigator.pushNamed(context, NotificationSettingsPage.routeName);
+                  },
                   child: ProfileContainerPage(
                     name: 'الاشعارات',
                     iconData: Icons.notifications_none,)
@@ -81,16 +99,16 @@ class ProfilePage extends StatelessWidget{
                     name: 'تواصل معنا',
                     iconData: Icons.chat_outlined,)
               ),
-              MainSpaces.medium(),
+              18.hSize,
               InkWell(
                 onTap: () => logout(context),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    MainText.title('سجل الخروج',color: Colors.black45,),
+                    const MainText.title('سجل الخروج',color: Colors.black45,),
                     Transform.rotate(
                       angle: 180 * 3.141592653589793 / 180,
-                      child: Icon(Icons.exit_to_app_outlined,size: 20,color: Colors.black54,),
+                      child: const Icon(Icons.exit_to_app_outlined,size: 20,color: Colors.black54,),
                     )
                   ],
                 ),

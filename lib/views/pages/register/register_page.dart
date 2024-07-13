@@ -1,17 +1,21 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/data/remote/api_service.dart';
+import 'package:flutter_app/core/extensions/assetss_widgets.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
 import 'package:flutter_app/core/utilities/app_validator.dart';
 import 'package:flutter_app/views/pages/login/login_page.dart';
 import 'package:flutter_app/views/widgets/main_button.dart';
-import 'package:flutter_app/views/widgets/main_spaces.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 import 'package:flutter_app/views/widgets/main_textfield.dart';
 import 'package:get_it/get_it.dart';
 
 class RegisterPage extends StatefulWidget {
   static const routeName='RegisterPage';
+
+  const RegisterPage({super.key});
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
@@ -26,6 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController phoneController = TextEditingController();
 
   TextEditingController nameController = TextEditingController();
+
   TextEditingController emailController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
@@ -42,7 +47,9 @@ class _RegisterPageState extends State<RegisterPage> {
         );
         Navigator.pushNamed(context, LoginPage.routeName);
       } catch (e) {
-        print('Registration failed: $e');
+        if (kDebugMode) {
+          print('Registration failed: $e');
+        }
       }
     }
   }
@@ -59,53 +66,53 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
+        padding: 10.aEdge,
         child: Center(
           child: Form(
             key: formKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
               children: [
-                MainSpaces.medium(),
-                MainText.pageTitle('إنشاء حساب'),
-                MainSpaces.medium(),
+                18.hSize,
+                const MainText.pageTitle('إنشاء حساب'),
+                18.hSize,
                 MainTextField(
-                  key: Key('nameField'),
+                  key: const Key('nameField'),
                   controller: nameController,
                   hint: 'الإسم',
                   validator: (value) => AppValidator.nameValidate(value),
                 ),
-                MainSpaces.medium(),
+                18.hSize,
                 MainTextField(
-                  key: Key('emailField'),
+                  key: const Key('emailField'),
                   controller: emailController,
                   hint: 'البريد الإلكتروني',
                   validator: (value) => AppValidator.emailValidate(value),
                 ),
-                MainSpaces.medium(),
+                18.hSize,
                 MainTextField(
                   controller: passwordController,
                   hint: 'أدخل كلمة المرور',
-                  prefixIcon: Icon(Icons.lock,size: 25),
+                  prefixIcon: const Icon(Icons.lock,size: 25),
                   suffixIcon: IconButton(
                     onPressed:  (){},
-                    icon: Icon(Icons.remove_red_eye_outlined
+                    icon: const Icon(Icons.remove_red_eye_outlined
                           ),),
                   obscureText: true,
                   validator: AppValidator.passwordValidate,
                 ),
-                MainSpaces.medium(),
+                18.hSize,
                 MainTextField(
-                  key: Key('phoneField'),
+                  key: const Key('phoneField'),
                   controller: phoneController,
                   hint: 'رقم الهاتف',
                   validator: (value) => AppValidator.phoneValidate(value),
                 ),
-                MainSpaces.medium(),
+                18.hSize,
                 MainTextField(
                   controller: dateController,
                   hint: 'تاريخ الميلاد',
-                  suffixIcon: Icon(Icons.calendar_today),
+                  suffixIcon: const Icon(Icons.calendar_today),
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
                       context: context,
@@ -121,7 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     }
                   },
                 ),
-                MainSpaces.medium(),
+                18.hSize,
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(
                     hintText: 'النوع',
@@ -129,7 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     fillColor: Colors.white,
                     filled: true,
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.primary),
+                      borderSide: const BorderSide(color: AppColors.primary),
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
@@ -152,14 +159,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     return null;
                   },
                 ),
-                MainSpaces.large(),
+                18.hSize,
                 MainButton(
-                  child: MainText.subPageTitle(
+                  onPressed: register,
+                  child: const MainText.subPageTitle(
                     'إنشاء حساب',
                     color: Colors.white,
                     textAlign: TextAlign.center,
-                  ),
-                  onPressed: register
+                  )
                 ),
               ],
             ),

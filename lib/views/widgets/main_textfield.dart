@@ -69,7 +69,7 @@ class MainTextField extends StatefulWidget {
       this.radius = 10,
       this.readOnly = false,
       this.obscureText = false,
-      this.hintFontSize = 18,
+      this.hintFontSize = 16,
       this.textDirection,
       this.hintColor = AppColors.primary
       });

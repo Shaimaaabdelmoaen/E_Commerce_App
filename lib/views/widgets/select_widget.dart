@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/core/utilities/app_color.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 
 class CustomSelectorWidget<T> extends StatelessWidget {
@@ -29,7 +30,7 @@ class CustomSelectorWidget<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = currentValue == null ? Colors.black26 : Colors.black87;
+    Color color = currentValue == null ? AppColors.primary.withOpacity(.5) : Colors.black87;
     String? Function(T?)? valueToString =
         valueToStringFunc ?? (v) => v?.toString();
     return Column(
@@ -38,11 +39,11 @@ class CustomSelectorWidget<T> extends StatelessWidget {
         if ((label ?? '').isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(
-              top: 10,
-              bottom: 9,
-              right: 8,
+              //top: 10,
+              //bottom: 9,
+              //right: 5,
             ),
-            child: MainText.title(label ?? '', fontSize: 14),
+            child: MainText.title(label ?? '', fontSize: 15),
           ),
         DropdownButtonFormField2<T>(
           isExpanded: true,
@@ -50,15 +51,15 @@ class CustomSelectorWidget<T> extends StatelessWidget {
             fillColor: fillColor,
             filled: fillColor != null,
             contentPadding: const EdgeInsets.symmetric(
-              vertical: 14,
-              horizontal: 16,
+              //vertical:8,
+              //horizontal: 8,
             ),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.withOpacity(0.5)),
+              borderSide: BorderSide(color: AppColors.primary.withOpacity(0.5)),
               borderRadius: BorderRadius.circular(10),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.withOpacity(0.5)),
+              borderSide: const BorderSide(color: AppColors.primary),
               borderRadius: BorderRadius.circular(10),
             ),
             focusedBorder: OutlineInputBorder(
@@ -76,6 +77,7 @@ class CustomSelectorWidget<T> extends StatelessWidget {
                 : (hint ?? label ?? ''),
             color: color,
             maxLines: 1,
+            fontSize: 15,
           ),
           items: items.map((T value) {
             return DropdownMenuItem<T>(
@@ -92,11 +94,14 @@ class CustomSelectorWidget<T> extends StatelessWidget {
           validator: validator,
           onChanged: onChanged,
           iconStyleData: IconStyleData(
-            icon: Icon(
-              Icons.keyboard_arrow_down_rounded,
-              color:
-                  items.isEmpty ? Colors.grey : Colors.black.withOpacity(0.8),
-              size: 30,
+            icon: Padding(
+              padding: const EdgeInsets.only(left: 6.0),
+              child: Icon(
+                Icons.keyboard_arrow_down_rounded,
+                color:
+                    items.isEmpty ? AppColors.primary : AppColors.primary,
+                size: 30,
+              ),
             ),
             iconSize: 24,
           ),

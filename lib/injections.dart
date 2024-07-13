@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_app/core/data/remote/api_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/core/utilities/app_endpoints.dart';
 
-import 'core/data/remote/api_service.dart';
 
 final getIt = GetIt.instance;
 

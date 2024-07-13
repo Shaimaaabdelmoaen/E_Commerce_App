@@ -45,6 +45,21 @@ class MainText extends StatelessWidget {
     this.letterSpacing,
     this.textBaseline,
   });
+  const MainText.mediumPageTitle(
+      this.text, {
+        super.key,
+        this.color = AppColors.primary,
+        this.fontSize = 26,
+        this.fontWeight = FontWeight.w600,
+        this.fontFamily,
+        this.textAlign,
+        this.textDirection,
+        this.maxLines,
+        this.overflow,
+        this.decoration,
+        this.letterSpacing,
+        this.textBaseline,
+      });
 
   const MainText.subPageTitle(
     this.text, {

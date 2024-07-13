@@ -1,14 +1,15 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/data/remote/api_service.dart';
+import 'package:flutter_app/core/extensions/assetss_widgets.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
 import 'package:flutter_app/core/utilities/app_validator.dart';
-import 'package:flutter_app/views/pages/bottom_navigation_bar/bottom_navigation_bar_page.dart';
-import 'package:flutter_app/views/pages/home/home_page.dart';
 import 'package:flutter_app/views/pages/register/register_page.dart';
 import 'package:flutter_app/views/widgets/main_button.dart';
 import 'package:flutter_app/views/widgets/main_divider.dart';
-import 'package:flutter_app/views/widgets/main_spaces.dart';
+import 'package:flutter_app/views/widgets/main_page.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 import 'package:flutter_app/views/widgets/main_textfield.dart';
 import 'package:get_it/get_it.dart';
@@ -16,6 +17,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = 'LoginPage';
+
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -46,7 +49,9 @@ class _LoginPageState extends State<LoginPage> {
 
         Navigator.pushNamed(context, BottomNavigationBarPage.routeName);
       } catch (e) {
-        print('Login failed: $e');
+        if (kDebugMode) {
+          print('Login failed: $e');
+        }
       }
     }
   }
@@ -63,26 +68,26 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
+        padding: 10.vhEdge,
         child: Center(
           child: Form(
             key: _formKey,
             child: Column(
               children: [
-                MainSpaces.medium(),
-                MainText.pageTitle('تسجيل الدخول'),
-                MainSpaces.medium(),
+                18.hSize,
+                const MainText.pageTitle('تسجيل الدخول'),
+                18.hSize,
                 MainTextField(
                   controller: emailController,
                   hint: 'أدخل البريد الإلكتروني',
-                  prefixIcon: Icon(Icons.mail_outline,size: 25,),
+                  prefixIcon: const Icon(Icons.mail_outline,size: 25,),
                   validator: AppValidator.emailValidate,
                 ),
-                MainSpaces.medium(),
+                18.hSize,
                 MainTextField(
                   controller: passwordController,
                   hint: 'أدخل كلمة المرور',
-                  prefixIcon: Icon(Icons.lock,size: 25),
+                  prefixIcon: const Icon(Icons.lock,size: 25),
                   suffixIcon: IconButton(
                     onPressed:  _togglePasswordVisibility,
                     icon: Icon(
@@ -92,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: _obscureText,
                   validator: AppValidator.passwordValidate,
                 ),
-                MainSpaces.medium(),
+                18.hSize,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -106,27 +111,27 @@ class _LoginPageState extends State<LoginPage> {
                             });
                           },
                         ),
-                        MainText.title('تذكرنى', color: AppColors.primary),
+                        const MainText.title('تذكرنى', color: AppColors.primary),
                       ],
                     ),
-                    InkWell(
+                    const InkWell(
                       child: MainText.title('هل نسيت كلمة المرور؟', color: AppColors.secondary),
                     ),
                   ],
                 ),
-                MainSpaces.large(),
+                20.hSize,
                 MainButton(
-                  child: MainText.subPageTitle(
+                  onPressed: login,
+                  child: const MainText.subPageTitle(
                     'تسجيل الدخول',
                     color: Colors.white,
                     textAlign: TextAlign.center,
-                  ),
-                  onPressed: login
+                  )
                 ),
-                MainSpaces.large(),
+                18.hSize,
                 MainDivider(title: 'الإستمرار بإستخدام'),
-                MainSpaces.medium(),
-                Row(
+                18.hSize,
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CircleAvatar(
@@ -139,15 +144,15 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-                MainSpaces.large(),
-                MainText.title('هل لا تمتلك حساب؟', color: Colors.black45),
-                MainSpaces.medium(),
+                20.hSize,
+                const MainText.title('هل لا تمتلك حساب؟', color: Colors.black45),
+                18.hSize,
                 InkWell(
                   onTap: (){
                     Navigator.pushNamed(context, RegisterPage.routeName);
                   },
-                    child: MainText.title('إنشاء حساب', color: AppColors.secondary)),
-                MainSpaces.medium(),
+                    child: const MainText.title('إنشاء حساب', color: AppColors.secondary)),
+                18.hSize
               ],
             ),
           ),

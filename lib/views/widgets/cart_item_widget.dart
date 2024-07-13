@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
-import 'package:flutter_app/providers/cart_provider.dart';
+import 'package:flutter_app/providers/cart/cart_provider.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +11,7 @@ class CartItemWidget extends StatelessWidget {
   final double price;
   final int quantity;
 
-  CartItemWidget({
+  const CartItemWidget({super.key,
     required this.id,
     required this.productId,
     required this.title,
@@ -28,14 +28,14 @@ class CartItemWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             MainText.subPageTitle(title),
-            MainText.title('حليب وأجبان')
+            const MainText.title('حليب وأجبان')
           ],
         ),
         subtitle: MainText.body('\$${price.toStringAsFixed(2)}'),
         trailing: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Icon(Icons.close,size: 20,),
+            const Icon(Icons.close,size: 20,),
             Container(
               width: 120,
               height: 35,
@@ -47,7 +47,7 @@ class CartItemWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   IconButton(
-                    icon: Icon(Icons.add,color: Colors.white,),
+                    icon: const Icon(Icons.add,color: Colors.white,),
                     onPressed: () {
                       Provider.of<CartProvider>(context, listen: false)
                           .addItem(productId, title, price);
@@ -55,7 +55,7 @@ class CartItemWidget extends StatelessWidget {
                   ),
                   MainText.body('$quantity',color: Colors.white,),
                   IconButton(
-                    icon: Icon(Icons.remove,color: Colors.white,),
+                    icon: const Icon(Icons.remove,color: Colors.white,),
                     onPressed: () {
                       Provider.of<CartProvider>(context, listen: false)
                           .removeSingleItem(productId);

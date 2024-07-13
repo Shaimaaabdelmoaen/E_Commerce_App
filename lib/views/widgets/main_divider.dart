@@ -1,16 +1,17 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
 import 'main_text.dart';
 
 class MainDivider extends StatelessWidget{
   String? title;
-  MainDivider ({this.title});
+  MainDivider ({super.key, this.title});
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(
+        const Expanded(
             child: Divider(
               color: Colors.grey,height: 2,)
         ),
@@ -20,7 +21,7 @@ class MainDivider extends StatelessWidget{
               color: AppColors.primary,
             )
         ),
-        Expanded(
+        const Expanded(
             child: Divider(
               color: Colors.grey,
               height: 2,)

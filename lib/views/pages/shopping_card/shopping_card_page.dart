@@ -1,40 +1,36 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_app/core/extensions/assetss_widgets.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
-import 'package:flutter_app/providers/app_provider.dart';
-import 'package:flutter_app/providers/cart_provider.dart';
 import 'package:flutter_app/views/widgets/cart_item_widget.dart';
 import 'package:flutter_app/views/widgets/main_appbar.dart';
 import 'package:flutter_app/views/widgets/main_button.dart';
-import 'package:flutter_app/views/widgets/main_spaces.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 import 'package:flutter_app/views/widgets/main_textfield.dart';
 
 
 class ShoppingCardPage extends StatelessWidget{
   static const routeName='ShoppingCardPage';
+
+  const ShoppingCardPage({super.key});
   @override
   Widget build(BuildContext context) {
-    final cartProvider = Provider.of<CartProvider>(context);
-    final cart = cartProvider.cart;
    return Scaffold(
-     appBar: MainAppBar(),
+     appBar: const MainAppBar(),
      body: Padding(
-       padding: const EdgeInsets.all(5.0),
+       padding: 5.aEdge,
        child: Center(
          child: Column(
            children: [
-             MainText.pageTitle('سلة المشتريات',color: AppColors.secondary,),
-             MainTextField(
+             const MainText.pageTitle('سلة المشتريات',color: AppColors.secondary,),
+             const MainTextField(
                hint: 'بحث',
                prefixIcon: Icon(Icons.search),
              ),
-             MainSpaces.large(),
+             20.hSize,
              Expanded(
                child: ListView.builder(
                  itemCount: 3,
-                 itemBuilder: (ctx, i) => CartItemWidget(
+                 itemBuilder: (ctx, i) => const CartItemWidget(
                    id: '5',
                    productId: '88',
                    title: 'المراعى',
@@ -45,7 +41,7 @@ class ShoppingCardPage extends StatelessWidget{
                ),
              ),
            Padding(
-             padding: const EdgeInsets.all(8.0),
+             padding: 8.aEdge,
              child: Container(
                decoration: BoxDecoration(
                  boxShadow: [
@@ -53,7 +49,7 @@ class ShoppingCardPage extends StatelessWidget{
                      color: Colors.grey.withOpacity(0.5),  // Shadow color
                      spreadRadius: 2,  // Spread radius
                      blurRadius: 5,  // Blur radius
-                     offset: Offset(0, 3),  // Offset from the container
+                     offset: const Offset(0, 3),  // Offset from the container
                    ),
                  ],
                ),
@@ -61,12 +57,12 @@ class ShoppingCardPage extends StatelessWidget{
                  width: double.infinity,
                  height: 50,
                  color: Colors.white,
-                 child: Row(
+                 child: const Row(
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children: [
                      MainText.subPageTitle('الإجمالي'),
                      Padding(
-                       padding: const EdgeInsets.all(8.0),
+                       padding: EdgeInsets.all(8.0),
                        child: MainText.subPageTitle('200'),
                      ),
                    ],
@@ -83,7 +79,7 @@ class ShoppingCardPage extends StatelessWidget{
                    color: Colors.grey.withOpacity(0.5),  // Shadow color
                    spreadRadius: 2,  // Spread radius
                    blurRadius: 5,  // Blur radius
-                   offset: Offset(0, 3),  // Offset from the container
+                   offset: const Offset(0, 3),  // Offset from the container
                  ),
                ],
              ),
@@ -93,12 +89,12 @@ class ShoppingCardPage extends StatelessWidget{
                  width: double.infinity,
                  height: 50,
                  color: Colors.white,
-                 child: Row(
+                 child: const Row(
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children: [
                      MainText.subPageTitle('حالة الدفع'),
                      Padding(
-                       padding: const EdgeInsets.all(8.0),
+                       padding: EdgeInsets.all(8.0),
                        child: MainText.subPageTitle('أجل 30 يوم'),
                      ),
                    ],
@@ -107,7 +103,7 @@ class ShoppingCardPage extends StatelessWidget{
              ),
            ),
          ),
-             MainButton(
+             const MainButton(
                child: MainText.subPageTitle('الدفع',
                  color: Colors.white,
                  textAlign: TextAlign.center,),)
