@@ -117,9 +117,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         HomePage.routeName:(_)=>const HomePage(),
         BottomNavigationBarPage.routeName:(_)=>const BottomNavigationBarPage(),
         EditPasswordPage.routeName:(_)=>const EditPasswordPage(),
-        NotificationSettingsPage.routeName:(_)=>const NotificationSettingsPage()
+        NotificationSettingsPage.routeName:(_)=>const NotificationSettingsPage(),
       },
-      //initialRoute: RegisterPage.routeName,
+      //initialRoute: LoginPage.routeName,
       navigatorKey: AppNavigator.navigatorKey,
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (context) => tr(context).app_name,
