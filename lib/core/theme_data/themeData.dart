@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
 
@@ -14,7 +16,7 @@ class MyThemeDataPage {
         iconColor: MaterialStatePropertyAll(lightPrimary),
       ),
     ),
-    iconButtonTheme: IconButtonThemeData(
+    iconButtonTheme: const IconButtonThemeData(
         style: ButtonStyle(
             iconColor: MaterialStatePropertyAll(
             Colors.white)

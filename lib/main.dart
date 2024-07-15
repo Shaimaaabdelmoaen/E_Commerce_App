@@ -18,6 +18,9 @@ import 'package:flutter_app/views/pages/edit_password/edit_password_page.dart';
 import 'package:flutter_app/views/pages/home/home_page.dart';
 import 'package:flutter_app/views/pages/login/login_page.dart';
 import 'package:flutter_app/views/pages/notification_settings/notification_settings_page.dart';
+import 'package:flutter_app/views/pages/payment_confirmation/payment_confirmation_page.dart';
+import 'package:flutter_app/views/pages/payment_method/payment_method_page.dart';
+import 'package:flutter_app/views/pages/payment_ways/payment_ways_page.dart';
 import 'package:flutter_app/views/pages/personal_profile/personal_profile.dart';
 import 'package:flutter_app/views/pages/product_details/product_details.dart';
 import 'package:flutter_app/views/pages/register/register_page.dart';
@@ -118,8 +121,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         BottomNavigationBarPage.routeName:(_)=>const BottomNavigationBarPage(),
         EditPasswordPage.routeName:(_)=>const EditPasswordPage(),
         NotificationSettingsPage.routeName:(_)=>const NotificationSettingsPage(),
+        PaymentWaysPage.routeName:(_)=>const PaymentWaysPage(),
+        PaymentMethodPage.routeName:(_)=>const PaymentMethodPage(),
+        PaymentConfirmationPage.routeName:(_)=>const PaymentConfirmationPage(),
       },
-      //initialRoute: LoginPage.routeName,
+      //initialRoute: RegisterPage.routeName,
       navigatorKey: AppNavigator.navigatorKey,
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (context) => tr(context).app_name,

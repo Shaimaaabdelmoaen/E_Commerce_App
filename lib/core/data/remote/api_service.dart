@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_app/core/models/product.dart';
 import 'package:flutter_app/core/models/sponsors.dart';
 import 'package:flutter_app/core/utilities/app_endpoints.dart';
@@ -50,7 +51,9 @@ class ApiService {
       );
 
       if (response.statusCode == 200 && response.data['status'] == true) {
-        print(response.data['message']);
+        if (kDebugMode) {
+          print(response.data['message']);
+        }
       } else {
         throw Exception('Failed to register');
       }
@@ -94,7 +97,9 @@ class ApiService {
       );
 
       if (response.statusCode == 200 && response.data['status'] == true) {
-        print(response.data['message']);
+        if (kDebugMode) {
+          print(response.data['message']);
+        }
       } else {
         throw Exception('Failed to logout');
       }

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/extensions/assetss_widgets.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
+import 'package:flutter_app/views/pages/payment_ways/payment_ways_page.dart';
 import 'package:flutter_app/views/widgets/cart_item_widget.dart';
 import 'package:flutter_app/views/widgets/main_appbar.dart';
 import 'package:flutter_app/views/widgets/main_button.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
+import 'package:flutter_app/views/widgets/main_textfield.dart';
+import 'package:flutter_app/views/widgets/select_widget.dart';
 
 
 class RequestsPage extends StatefulWidget{
+
   static const routeName='RequestsPage';
 
   const RequestsPage({super.key});
@@ -17,55 +21,45 @@ class RequestsPage extends StatefulWidget{
 }
 
 class _RequestsPageState extends State<RequestsPage> {
-  String? selectedAddress;
+  String? selectedGender;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MainAppBar(),
       body: Padding(
-        padding: 5.aEdge,
+        padding: 15.vhEdge,
         child: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Center(child: MainText.pageTitle('الدفع',color: AppColors.secondary,)),
+              const MainText.pageTitle('سلة المشتريات',color: AppColors.secondary,),
+              const MainTextField(
+                hint: 'بحث',
+                prefixIcon: Icon(Icons.search),
+              ),
+              10.hSize,
               Expanded(
                 child: ListView.builder(
-                  itemCount: 3,
+                  itemCount:3,
                   itemBuilder: (ctx, i) => const CartItemWidget(
                     id: '5',
                     productId: '88',
                     title: 'المراعى',
                     price: 55,
-                    quantity: 88,
+                    quantity: 3,
                   ),
 
                 ),
               ),
-              18.hSize,
-              const MainText.subPageTitle('معلومات الشراء',),
-              18.hSize,
-              DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  hintText: 'اختيار العنوان',
-                  hintStyle: TextStyle(color: AppColors.primary.withOpacity(.6)),
-                  fillColor: Colors.white,
-                  filled: true,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: AppColors.primary),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                value: selectedAddress,
-                items: ['مصر', 'الفيوم', 'Other'].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
+              20.hSize,
+              CustomSelectorWidget<String>(
+                items: const ['مصر', 'الفيوم', 'اخرى'],
+                currentValue: selectedGender,
+                hint: 'العنوان',
+                hintColor: AppColors.primary,
+                fontSize: 20,
                 onChanged: (newValue) {
                   setState(() {
-                    selectedAddress = newValue;
+                    selectedGender = newValue;
                   });
                 },
                 validator: (value) {
@@ -74,79 +68,73 @@ class _RequestsPageState extends State<RequestsPage> {
                   }
                   return null;
                 },
+                fillColor: Colors.white,
               ),
-              Padding(
-                padding: 8.aEdge,
+              20.hSize,
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
                 child: Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),  // Shadow color
-                        spreadRadius: 2,  // Spread radius
-                        blurRadius: 5,  // Blur radius
-                        offset: const Offset(0, 3),  // Offset from the container
-                      ),
-                    ],
-                  ),
-                  child: Container(
-                    width: double.infinity,
-                    height: 50,
-                    color: Colors.white,
+                  width: 500,
+                  height: 50,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: 10.aEdge,
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         MainText.subPageTitle('الإجمالي'),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: MainText.subPageTitle('200'),
-                        ),
+                        MainText.subPageTitle('200'),
                       ],
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: 5.aEdge,
+              20.hSize,
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
                 child: Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),  // Shadow color
-                        spreadRadius: 2,  // Spread radius
-                        blurRadius: 5,  // Blur radius
-                        offset: const Offset(0, 3),  // Offset from the container
-                      ),
-                    ],
-                  ),
+                  width: 500,
+                  height: 50,
+                  color: Colors.white,
                   child: Padding(
                     padding: 10.aEdge,
-                    child: Container(
-                      width: double.infinity,
-                      height: 50,
-                      color: Colors.white,
-                      child:  Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const MainText.subPageTitle('حالة الدفع'),
-                          Padding(
-                            padding: 8.aEdge,
-                            child: const MainText.subPageTitle('أجل 30 يوم'),
-                          ),
-                        ],
-                      ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        MainText.subPageTitle('حالة الدفع'),
+                        MainText.subPageTitle('أجل 30 يوم'),
+                      ],
                     ),
                   ),
                 ),
               ),
-               MainButton(
+              20.hSize,
+              MainButton(
                 onPressed: (){
+                  Navigator.pushNamed(context, PaymentWaysPage.routeName);
                 },
                 child: const MainText.subPageTitle('الدفع',
-                color: Colors.white,
-                textAlign: TextAlign.center,
-                ),
-
-              )
+                  color: Colors.white,
+                  textAlign: TextAlign.center,)
+                ,)
 
               /*Expanded(
             child: ListView.builder(

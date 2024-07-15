@@ -97,9 +97,11 @@ class _PersonalProfilePageState extends State<PersonalProfilePage> {
                 ),
                 13.hSize,
                 CustomSelectorWidget<String>(
+                  contentPadding: 10.vEdge,
                   items: const ['Male', 'Female', 'Other'],
                   currentValue: selectedGender,
                   hint: 'النوع',
+                  hintColor: AppColors.primary,
                   onChanged: (newValue) {
                     setState(() {
                       selectedGender = newValue;

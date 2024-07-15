@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainAppBar(),
+      appBar: const MainAppBar(),
       body: Padding(
         padding: 8.vhEdge,
         child: SingleChildScrollView(

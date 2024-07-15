@@ -16,6 +16,15 @@ class CustomSelectorWidget<T> extends StatelessWidget {
     this.icon,
     this.validator,
     this.fillColor,
+    this.hintColor,
+    this.fontSize,
+    this.hintAlignment,
+    this.iconPadding,
+    this.borderColor,
+    this.contentPadding,
+    this.hintImage,
+    this.iconColor
+
   });
   final T? currentValue;
   final String? label;
@@ -27,21 +36,29 @@ class CustomSelectorWidget<T> extends StatelessWidget {
   final Widget? icon;
   final String? Function(T?)? validator;
   final Color? fillColor;
+  final Color? hintColor;
+  final double? fontSize;
+  final AlignmentGeometry? hintAlignment;
+  final EdgeInsetsGeometry? iconPadding;
+  final Color? borderColor;
+  final EdgeInsetsGeometry? contentPadding;
+  final Widget? hintImage;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
-    Color color = currentValue == null ? AppColors.primary.withOpacity(.5) : Colors.black87;
+    Color? color = currentValue == null ? hintColor : hintColor;
     String? Function(T?)? valueToString =
         valueToStringFunc ?? (v) => v?.toString();
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         if ((label ?? '').isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(
-              //top: 10,
-              //bottom: 9,
-              //right: 5,
+              top: 10,
+              bottom: 9,
+              //right: 15,
             ),
             child: MainText.title(label ?? '', fontSize: 15),
           ),
@@ -50,34 +67,43 @@ class CustomSelectorWidget<T> extends StatelessWidget {
           decoration: InputDecoration(
             fillColor: fillColor,
             filled: fillColor != null,
-            contentPadding: const EdgeInsets.symmetric(
-              //vertical:8,
-              //horizontal: 8,
-            ),
+            contentPadding: contentPadding,
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.primary.withOpacity(0.5)),
+              borderSide: BorderSide(color:borderColor ?? AppColors.primary.withOpacity(0.5)),
               borderRadius: BorderRadius.circular(10),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColors.primary),
+              borderSide:  BorderSide(color:borderColor ?? AppColors.primary),
               borderRadius: BorderRadius.circular(10),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black.withOpacity(0.5)),
+              borderSide: BorderSide(color: borderColor ?? Colors.black.withOpacity(0.5)),
               borderRadius: BorderRadius.circular(10),
             ),
             errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black.withOpacity(0.5)),
+              borderSide: BorderSide(color:borderColor ?? Colors.black.withOpacity(0.5)),
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          hint: MainText(
-            (currentValue?.toString() ?? '').isNotEmpty
-                ? currentValue!.toString()
-                : (hint ?? label ?? ''),
-            color: color,
-            maxLines: 1,
-            fontSize: 15,
+          hint: Align(
+            alignment: hintAlignment ?? Alignment.centerRight,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (hintImage != null) ...[
+                  hintImage!,
+                  const SizedBox(width: 8),
+                ],
+                MainText(
+                  (currentValue?.toString() ?? '').isNotEmpty
+                      ? currentValue!.toString()
+                      : (hint ?? label ?? ''),
+                  color: color,
+                  maxLines: 1,
+                  fontSize: fontSize,
+                ),
+              ],
+            ),
           ),
           items: items.map((T value) {
             return DropdownMenuItem<T>(
@@ -95,11 +121,11 @@ class CustomSelectorWidget<T> extends StatelessWidget {
           onChanged: onChanged,
           iconStyleData: IconStyleData(
             icon: Padding(
-              padding: const EdgeInsets.only(left: 6.0),
+              padding: iconPadding ?? const EdgeInsets.only(left: 6.0),
               child: Icon(
                 Icons.keyboard_arrow_down_rounded,
                 color:
-                    items.isEmpty ? AppColors.primary : AppColors.primary,
+                    iconColor ?? AppColors.primary,
                 size: 30,
               ),
             ),

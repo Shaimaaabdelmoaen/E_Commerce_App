@@ -1,23 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/extensions/assetss_widgets.dart';
 import 'package:flutter_app/core/utilities/app_color.dart';
+import 'package:flutter_app/views/pages/payment_ways/payment_ways_page.dart';
 import 'package:flutter_app/views/widgets/cart_item_widget.dart';
 import 'package:flutter_app/views/widgets/main_appbar.dart';
 import 'package:flutter_app/views/widgets/main_button.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 import 'package:flutter_app/views/widgets/main_textfield.dart';
+import 'package:flutter_app/views/widgets/select_widget.dart';
 
 
-class ShoppingCardPage extends StatelessWidget{
+class ShoppingCardPage extends StatefulWidget{
+
   static const routeName='ShoppingCardPage';
 
   const ShoppingCardPage({super.key});
+
+  @override
+  State<ShoppingCardPage> createState() => _ShoppingCardPageState();
+}
+
+class _ShoppingCardPageState extends State<ShoppingCardPage> {
+  String? selectedGender;
   @override
   Widget build(BuildContext context) {
    return Scaffold(
      appBar: const MainAppBar(),
      body: Padding(
-       padding: 5.aEdge,
+       padding: 15.vhEdge,
        child: Center(
          child: Column(
            children: [
@@ -26,87 +36,105 @@ class ShoppingCardPage extends StatelessWidget{
                hint: 'بحث',
                prefixIcon: Icon(Icons.search),
              ),
-             20.hSize,
+             10.hSize,
              Expanded(
                child: ListView.builder(
-                 itemCount: 3,
+                 itemCount:3,
                  itemBuilder: (ctx, i) => const CartItemWidget(
                    id: '5',
                    productId: '88',
                    title: 'المراعى',
                    price: 55,
-                   quantity: 88,
+                   quantity: 3,
                  ),
 
                ),
              ),
-           Padding(
-             padding: 8.aEdge,
+             20.hSize,
+             CustomSelectorWidget<String>(
+               items: const ['مصر', 'الفيوم', 'اخرى'],
+               currentValue: selectedGender,
+               hint: 'العنوان',
+               hintColor: AppColors.primary,
+               fontSize: 20,
+               onChanged: (newValue) {
+                 setState(() {
+                   selectedGender = newValue;
+                 });
+               },
+               validator: (value) {
+                 if (value == null || value.isEmpty) {
+                   return 'Please select your gender';
+                 }
+                 return null;
+               },
+               fillColor: Colors.white,
+             ),
+           20.hSize,
+           Container(
+             decoration: BoxDecoration(
+               boxShadow: [
+                 BoxShadow(
+                   color: Colors.grey.withOpacity(0.5),
+                   spreadRadius: 2,
+                   blurRadius: 5,
+                   offset: const Offset(0, 3),
+                 ),
+               ],
+             ),
              child: Container(
-               decoration: BoxDecoration(
-                 boxShadow: [
-                   BoxShadow(
-                     color: Colors.grey.withOpacity(0.5),  // Shadow color
-                     spreadRadius: 2,  // Spread radius
-                     blurRadius: 5,  // Blur radius
-                     offset: const Offset(0, 3),  // Offset from the container
-                   ),
-                 ],
-               ),
-               child: Container(
-                 width: double.infinity,
-                 height: 50,
-                 color: Colors.white,
+               width: 500,
+               height: 50,
+               color: Colors.white,
+               child: Padding(
+                 padding: 10.aEdge,
                  child: const Row(
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children: [
                      MainText.subPageTitle('الإجمالي'),
-                     Padding(
-                       padding: EdgeInsets.all(8.0),
-                       child: MainText.subPageTitle('200'),
-                     ),
+                     MainText.subPageTitle('200'),
                    ],
                  ),
                ),
              ),
            ),
-         Padding(
-           padding: const EdgeInsets.all(5.0),
+             20.hSize,
+         Container(
+           decoration: BoxDecoration(
+             boxShadow: [
+               BoxShadow(
+                 color: Colors.grey.withOpacity(0.5),
+                 spreadRadius: 2,
+                 blurRadius: 5,
+                 offset: const Offset(0, 3),
+               ),
+             ],
+           ),
            child: Container(
-             decoration: BoxDecoration(
-               boxShadow: [
-                 BoxShadow(
-                   color: Colors.grey.withOpacity(0.5),  // Shadow color
-                   spreadRadius: 2,  // Spread radius
-                   blurRadius: 5,  // Blur radius
-                   offset: const Offset(0, 3),  // Offset from the container
-                 ),
-               ],
-             ),
+             width: 500,
+             height: 50,
+             color: Colors.white,
              child: Padding(
-               padding: const EdgeInsets.only(bottom: 10.0),
-               child: Container(
-                 width: double.infinity,
-                 height: 50,
-                 color: Colors.white,
-                 child: const Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                   children: [
-                     MainText.subPageTitle('حالة الدفع'),
-                     Padding(
-                       padding: EdgeInsets.all(8.0),
-                       child: MainText.subPageTitle('أجل 30 يوم'),
-                     ),
-                   ],
-                 ),
+               padding: 10.aEdge,
+               child: const Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   MainText.subPageTitle('حالة الدفع'),
+                   MainText.subPageTitle('أجل 30 يوم'),
+                 ],
                ),
              ),
            ),
          ),
-             const MainButton(
-               child: MainText.subPageTitle('الدفع',
+             20.hSize,
+              MainButton(
+               onPressed: (){
+                 Navigator.pushNamed(context, PaymentWaysPage.routeName);
+               },
+               child: const MainText.subPageTitle('الدفع',
                  color: Colors.white,
-                 textAlign: TextAlign.center,),)
+                 textAlign: TextAlign.center,)
+               ,)
 
          /*Expanded(
             child: ListView.builder(
@@ -126,5 +154,4 @@ class ShoppingCardPage extends StatelessWidget{
      ),
    );
   }
-
 }

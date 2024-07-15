@@ -10,6 +10,7 @@ import 'package:flutter_app/views/pages/login/login_page.dart';
 import 'package:flutter_app/views/widgets/main_button.dart';
 import 'package:flutter_app/views/widgets/main_text.dart';
 import 'package:flutter_app/views/widgets/main_textfield.dart';
+import 'package:flutter_app/views/widgets/select_widget.dart';
 import 'package:get_it/get_it.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -129,24 +130,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   },
                 ),
                 18.hSize,
-                DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
-                    hintText: 'النوع',
-                    hintStyle: TextStyle(color: AppColors.primary.withOpacity(.6)),
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: AppColors.primary),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  value: selectedGender,
-                  items: ['Male', 'Female', 'Other'].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
+                CustomSelectorWidget<String>(
+                  contentPadding: 10.vEdge,
+                  items: const ['Male', 'Female', 'Other'],
+                  currentValue: selectedGender,
+                  hint: 'النوع',
+                  hintAlignment: Alignment.topRight,
+                  hintColor: AppColors.primary,
                   onChanged: (newValue) {
                     setState(() {
                       selectedGender = newValue;
@@ -158,6 +148,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     }
                     return null;
                   },
+                  fillColor: Colors.white,
                 ),
                 18.hSize,
                 MainButton(

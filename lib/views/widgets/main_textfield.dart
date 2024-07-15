@@ -37,6 +37,7 @@ class MainTextField extends StatefulWidget {
   final bool obscureText;
   final double? hintFontSize;
   final TextDirection? textDirection;
+  final TextAlign hintTextAlign;
 
   const MainTextField(
       {super.key,
@@ -71,7 +72,8 @@ class MainTextField extends StatefulWidget {
       this.obscureText = false,
       this.hintFontSize = 16,
       this.textDirection,
-      this.hintColor = AppColors.primary
+      this.hintColor = AppColors.primary,
+      this.hintTextAlign = TextAlign.start,
       });
 
   @override
@@ -144,6 +146,7 @@ class MainTextFieldState extends State<MainTextField> {
               FocusScope.of(context).requestFocus(FocusNode());
             }
           },
+          textAlign: widget.hintTextAlign,
           validator: widget.validator,
           textDirection: widget.textDirection ??
               (isAr ? TextDirection.rtl : TextDirection.ltr),
@@ -152,11 +155,11 @@ class MainTextFieldState extends State<MainTextField> {
             prefixIcon: widget.prefixIcon,
             suffix: widget.suffix,
             contentPadding: widget.contentPadding ??
-                const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
+                 25.vhEdge,
             hintText: widget.hint.isNotEmpty ? widget.hint : null,
             labelText: widget.label,
             hintStyle: TextStyle(
-                color: AppColors.primary.withOpacity(.5), fontSize: widget.hintFontSize),
+                color: widget.hintColor, fontSize: widget.hintFontSize),
             labelStyle: const TextStyle(color: Colors.black54, fontSize: 12),
             border: _border(
               color: widget.borderColor ?? Colors.black,
